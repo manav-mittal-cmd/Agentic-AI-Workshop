@@ -1,10 +1,11 @@
 """
-Part 1 — Complete Version: News Digest
-Agentic AI Workshop: Data Flow with LangGraph + LangSmith + Ollama
+Agent: News Digest
 
-Stack:
+Goal: Showcase Data Flow with LangGraph + LangSmith + Ollama
+
+Tech Stack:
   - feedparser + httpx — RSS fetching (pure Python, no model needed)
-  - Ollama (llama3.2:3b) — ranking + one-line summaries only
+  - Ollama (llama3.2:3b) — ranking + summaries
   - LangGraph — explicit node-by-node data flow
   - LangSmith — full trace observability
 
@@ -20,8 +21,8 @@ Graph:
 Before running:
   1. Install Ollama → https://ollama.com
   2. Run: ollama pull llama3.2:3b
-  3. Copy .env.example to .env and add your LangSmith key
-  4. uv run python part1/complete/agent.py
+  3. Create .env file and add your LangSmith key
+  4. uv run python news-agent.py
 """
 
 import operator
@@ -41,7 +42,7 @@ load_dotenv()
 # ── Layer 1: State ────────────────────────────────────────────────────────────
 # The entire data pipeline as a typed dict.
 # raw_items  — every headline pulled from every RSS feed (list of dicts)
-# ranked     — top 10-15 after the model ranks them (list of dicts)
+# ranked     — top 10 after the model ranks them (list of dicts)
 # digest     — final list with model-written summaries attached (list of dicts)
 # failed     — sources that could not be fetched
 # messages   — accumulates across all nodes for LangSmith visibility
