@@ -1,0 +1,17 @@
+# RSS feed sources for the Part 1 digest
+# One feed URL per line. Lines starting with # are ignored.
+# These must be actual RSS/Atom feed URLs (not homepage URLs).
+
+# Tech & AI News
+https://news.ycombinator.com/rss
+https://techcrunch.com/feed/
+https://www.wired.com/feed/rss
+https://www.theverge.com/rss/index.xml
+https://arstechnica.com/feed/
+https://venturebeat.com/feed/
+https://www.technologyreview.com/feed/
+https://simonwillison.net/atom/everything/
+https://huggingface.co/blog/feed.xml
+https://openai.com/news/rss/
+https://www.anthropic.com/rss.xml
+https://developers.googleblog.com/feeds/posts/default
