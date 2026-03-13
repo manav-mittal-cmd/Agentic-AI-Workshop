@@ -104,6 +104,7 @@ def load_sources_node(state: AgentState) -> dict:
 # 2nd node --> provide the agent ability to search the web
 def fetch_feeds_node(state: AgentState) -> dict:
     all_items, failed = [], []
+
     for url in state["sources"]:
         items, err = fetch_feed(url)
         if err:
@@ -112,25 +113,31 @@ def fetch_feeds_node(state: AgentState) -> dict:
         else:
             print(f"  ✓ {url.split('/')[2]} — {len(items)} items")
             all_items.extend(items)
+
     print(f"\n[fetch_feeds] {len(all_items)} total headlines")
+
     return {"raw_items": all_items, "failed": failed}
 
 # 3rd node --> provide agent ability to read articles
 def fetch_articles_node(state: AgentState) -> dict:
     """Visit each article URL and extract the full text. Gives the model real content."""
+
     print(f"\n[fetch_articles] Fetching {len(state['raw_items'])} articles...")
     enriched = []
+
     for item in state["raw_items"]:
         content = fetch_article(item["url"])
         status = f"{len(content)} chars" if content else "failed"
         print(f"  {'✓' if content else '✗'} {item['title'][:50]}... ({status})")
         enriched.append({**item, "content": content})
+
     return {"raw_items": enriched}
 
 
 # 4th node --> return a list of articles that are relevant
 def rank_node(state: AgentState) -> dict:
     """Model ranks by reading actual article content, not just titles."""
+
     print(f"\n[rank_node] Ranking {len(state['raw_items'])} articles...")
 
     numbered = "\n\n".join(
@@ -141,8 +148,10 @@ def rank_node(state: AgentState) -> dict:
     
     response = llm.invoke(RANK_PROMPT.format(articles=numbered))
     raw = response.content.strip()
+
     print(f"[rank_node] Model chose: {raw}")
 
+    # check the model output. Make sure it is "# # # #"" format
     indices = []
     for token in raw.replace(",", " ").split():
         try:
@@ -152,6 +161,7 @@ def rank_node(state: AgentState) -> dict:
         except ValueError:
             continue
 
+    # if the model doesn't output a clean list. Pick first 10 articles.
     if not indices:
         print("[rank_node] Unparseable — falling back to first 10")
         indices = list(range(min(10, len(state["raw_items"]))))
@@ -236,7 +246,7 @@ def build_graph():
     workflow.add_edge("rank", "summarize")
     workflow.add_edge("summarize", "save")
     workflow.add_edge("save", END)
-    
+
     return workflow.compile()
 
 

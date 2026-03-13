@@ -80,12 +80,13 @@ agentic-ai-workshop/
 | 2 | Local model + free search tool | `ChatOllama` + `DuckDuckGoSearchRun` |
 | 3 | Nodes — one job each, read state | `def search_node(state)` |
 | 4 | Graph — connects the nodes | `workflow.add_edge(...)` |
-| 5 | Observability — see every token, every tool call | LangSmith dashboard |
-| 6 | Conditional logic — where pipeline becomes agent | `add_conditional_edges` |
+| 5 | Conditional logic — where pipeline becomes agent | `add_conditional_edges` |
+| 6 | Observability — see every token, every tool call | LangSmith dashboard |
+
 
 ### Run the complete version
 ```bash
-uv run python news-agent.py
+uv run python news_agent_refined.py
 ```
 
 ---
