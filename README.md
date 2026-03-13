@@ -35,6 +35,9 @@ uv sync
 # NOTE: have ollama running on your device in the background before pulling a specific version
 ollama pull llama3.2:3b
 
+# if running the news_agent_refined.py
+# ollama pull mistral:7b 
+
 # Set up environment variables [OPTIONAL]
 # go into your project directory
 touch .env
@@ -60,7 +63,8 @@ agentic-ai-workshop/
 ├── README.md
 │
 ├── agent.py                # Simple agent framework for summarizing a search result
-├── news-agent.py           # News Digest Agent
+├── news_agent.py           # News Digest Agent
+├── news_agent_refined.py   # Agent with better prompts and larger model
 ├── Sources.txt             # List of websites to search through
 ```
 
@@ -88,6 +92,12 @@ agentic-ai-workshop/
 ```bash
 uv run python news_agent_refined.py
 ```
+
+---
+### Example of LangSmith Output
+
+Note how it shows the token usage. This can be very helpful if you have to work with a paid model. 
+![LangSmith Dashboard](langGraph-image.png)
 
 ---
 

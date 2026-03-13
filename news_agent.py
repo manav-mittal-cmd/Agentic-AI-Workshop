@@ -141,7 +141,6 @@ def rank_node(state: AgentState) -> dict:
         f"Pick the 10 most significant stories for a tech/AI-focused audience. "
         f"Prioritize: AI/ML breakthroughs, major product launches, important research, industry shifts.\n\n"
         f"Respond with ONLY a comma-separated list of the numbers you selected. "
-        f"Example: 2, 5, 7, 11, 14, 18, 21, 25, 28, 30\n"
         f"Nothing else."
     )
 
@@ -207,7 +206,7 @@ def save_node(state: AgentState) -> dict:
     print(f"\n[save_node] Writing {filename}...")
 
     lines = [
-        f"# 🗞️ Tech & AI News Digest",
+        f"# Tech & AI News Digest",
         f"*{date_display} — {len(state['digest'])} stories from {len(state['sources'])} sources*",
         "",
         "---",
@@ -224,7 +223,7 @@ def save_node(state: AgentState) -> dict:
         lines.append("")
 
     if state["failed"]:
-        lines.append("### ⚠️ Sources that failed to load")
+        lines.append("### Sources that failed to load")
         for url in state["failed"]:
             lines.append(f"- {url}")
         lines.append("")
