@@ -1,28 +1,7 @@
 """
-Agent: News Digest
+This file a pre-cursor to news-agent-refined. 
 
-Goal: Showcase Data Flow with LangGraph + LangSmith + Ollama
-
-Tech Stack:
-  - feedparser + httpx — RSS fetching (pure Python, no model needed)
-  - Ollama (llama3.2:3b) — ranking + summaries
-  - LangGraph — explicit node-by-node data flow
-  - LangSmith — full trace observability
-
-Key design decision:
-  The model NEVER generates URLs. It only reads and ranks real ones.
-  All structure comes from Python. This makes llama3.2:3b viable.
-
-Graph:
-  fetch_feeds → [enough feeds?] → rank → summarize → save
-                      ↓ no
-                  [end with error]
-
-Before running:
-  1. Install Ollama → https://ollama.com
-  2. Run: ollama pull llama3.2:3b
-  3. Create .env file and add your LangSmith key
-  4. uv run python news-agent.py
+This Agent only has basic prompts, and a smaller model. 
 """
 
 import operator
@@ -307,7 +286,7 @@ if __name__ == "__main__":
     graph = build_graph()
 
     print(f"\n{'='*55}")
-    print(f"  Tech & AI News Digest — Part 1")
+    print(f"  Tech & AI News Digest")
     print(f"  LangGraph + LangSmith + llama3.2:3b")
     print(f"{'='*55}")
 
